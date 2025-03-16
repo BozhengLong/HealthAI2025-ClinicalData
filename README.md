@@ -53,6 +53,7 @@ HealthAI/
 
 ### 预计运行时间
 - `generate_qwen_diagonosis.py`: ~8小时
+- `finetune_qwen.py`: ~1小时
 - `infer.py`: ~8小时
 
 ### 安装步骤
