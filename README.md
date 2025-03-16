@@ -1,7 +1,8 @@
 # HealthAI - 医疗诊断系统
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-2.1.0-orange)
+![Python](https://img.shields.io/badge/Python-3.10.16-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-orange)
+![CUDA](https://img.shields.io/badge/CUDA-11.8-green)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 HealthAI是一个基于大型语言模型的医疗诊断系统，通过对Qwen2.5-7B-Instruct模型进行参数高效微调（LoRA），使其能够根据病历信息给出准确的诊断和详细的诊断依据。系统采用JSON格式输出，便于后续处理和分析。
@@ -28,7 +29,6 @@ HealthAI/
 │   ├── finetune_qwen.py       # 微调脚本
 │   ├── infer.py               # 推理脚本
 │   ├── generate_qwen_diagonosis.py # 使用Qwen-72B生成训练数据
-│   ├── evaluate_json_parsing.py # 评估JSON解析成功率脚本
 │   ├── baseline.py            # 基准测试脚本
 │   └── utils.py               # 工具函数模块
 ├── logs/                      # 日志目录
@@ -40,10 +40,20 @@ HealthAI/
 
 ### 环境要求
 
-- Python 3.8+
-- CUDA 11.7+ (GPU训练和推理)
-- 16GB+ GPU内存 (推理)
-- 24GB+ GPU内存 (训练)
+### 硬件配置
+- GPU: NVIDIA RTX 4090D (24GB) * 1
+- CPU: 16 vCPU Intel(R) Xeon(R) Platinum 8481C
+- RAM: 32GB+
+
+### 软件要求
+- Python 3.10.16
+- CUDA 11.8
+- PyTorch 2.5.1
+- 运行环境: AutoDL云服务器
+
+### 预计运行时间
+- `generate_qwen_diagonosis.py`: ~8小时
+- `infer.py`: ~8小时
 
 ### 安装步骤
 
@@ -55,7 +65,7 @@ cd HealthAI2025-ClinicalData
 
 2. 创建并激活conda环境
 ```bash
-conda create -n healthai python=3.10
+conda create -n healthai python=3.10.16
 conda activate healthai
 ```
 
@@ -122,14 +132,6 @@ python scripts/infer.py \
 - `--output_path`: 输出文件路径
 - `--save_interval`: 保存结果的间隔（样本数）
 
-### 4. 评估JSON解析成功率
-
-```bash
-# 评估JSON解析成功率
-python scripts/evaluate_json_parsing.py \
-  --results_file data/predict_output.jsonl
-```
-
 ## 技术细节
 
 ### 微调方法
@@ -171,9 +173,10 @@ python scripts/evaluate_json_parsing.py \
    - 确保数据格式正确
    - 尝试减少训练样本数量进行测试
 
-3. **JSON解析失败**
-   - 使用`evaluate_json_parsing.py`脚本评估输出质量
-   - 检查原始输出格式，调整解析策略
+3. **JSON解析问题**
+   - 检查生成的输出格式
+   - 调整prompt模板以引导模型生成更规范的JSON
+   - 优化解析策略，增强容错能力
 
 ## 贡献指南
 

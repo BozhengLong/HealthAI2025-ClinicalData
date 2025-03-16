@@ -19,7 +19,7 @@ from tqdm import tqdm
 
 # 导入工具函数
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from scripts.utils import get_project_root, get_data_path, get_model_path, setup_logging, ensure_dir
+from utils import get_project_root, get_data_path, get_model_path, setup_logging, ensure_dir
 
 # 设置日志
 log_file = Path(get_project_root()) / "logs" / f"inference_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"

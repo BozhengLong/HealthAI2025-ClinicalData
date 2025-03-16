@@ -1,33 +1,20 @@
 # Core dependencies
-torch==2.1.0
-transformers==4.37.2
-peft==0.7.1
-accelerate==0.27.1
-bitsandbytes==0.41.3  # 用于量化
-safetensors==0.4.2    # 用于模型权重保存
-
-# Data processing
-datasets==2.16.1
-pandas==2.2.0
-numpy==1.24.3
-scikit-learn==1.4.0
-
-# Text processing
-sentencepiece==0.1.99
-protobuf==4.25.1
-tiktoken==0.5.2
-
-# Utilities
-tqdm==4.66.1
-wandb==0.16.3
-jsonlines==4.0.0
-regex==2023.12.25
-
-# Logging and monitoring
-tensorboard==2.15.1
-psutil==5.9.8  # 用于监控系统资源
-
-# Optional: for development
-pytest==8.0.0
-black==24.1.1
-flake8==7.0.0 
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+transformers==4.49.0
+peft==0.14.0
+accelerate==1.5.2
+openai==1.60.1
+tqdm==4.67.1
+numpy==2.0.1
+pandas==2.2.3
+scikit-learn==1.6.1
+requests==2.32.3
+python-dotenv==1.0.1
+safetensors==0.5.3
+datasets==3.3.2
+protobuf==4.25.3
+wandb==0.19.8
+regex==2024.11.6
+psutil==7.0.0

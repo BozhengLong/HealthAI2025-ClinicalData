@@ -24,7 +24,7 @@ logger = setup_logging(log_file=log_file)
 
 # 配置 API Key 和 API 基础 URL
 client = OpenAI(
-    api_key="sk-1fab665e4eb340d4a15a7bdee862e479",  # 替换成你的 API Key
+    api_key="...",  # 替换成你的 API Key
     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
 )
 
@@ -74,14 +74,16 @@ def main():
         case_id = item["id"]
         content = item["feature_content"].strip()
 
-        prompt = (
-            "你是一位经验丰富的医生，请根据以下病历信息进行诊断。\n"
-            "请严格按照以下 JSON 格式输出，不要输出其他内容：\n"
-            "{\n  \"diseases\": \"<病名>\",\n  \"reason\": \"<详细诊断依据>\"\n}\n"
-            "其中，\"diseases\" 字段只应包含简短的疾病名称（如"贫血"、"糖尿病"等），"
-            "而 \"reason\" 字段应包含详细的诊断依据。\n"
-            "病历信息如下：\n" + content
-        )
+        prompt = f"""你是一位经验丰富的医生，请根据以下病历信息进行诊断。
+请严格按照以下 JSON 格式输出，不要输出其他内容：
+{{
+  "diseases": "<病名>",
+  "reason": "<详细诊断依据>"
+}}
+其中，"diseases" 字段只应包含简短的疾病名称（如"贫血"、"糖尿病"等），
+而 "reason" 字段应包含详细的诊断依据。
+病历信息如下：
+{content}"""
 
         messages = [
             {'role': 'system', 'content': 'You are a helpful assistant.'},

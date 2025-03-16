@@ -1,9 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+## Author: Bozheng Long
+## Date Created: 2025-03-16
+## Last Modified: 2025-03-16
+## Description: 工具函数模块，包含路径处理、日志设置等通用功能。
 
-"""
-工具函数模块，包含路径处理、日志设置等通用功能。
-"""
 
 import os
 import logging
