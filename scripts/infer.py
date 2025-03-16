@@ -1,24 +1,29 @@
+## Author: Bozheng Long
+## Date Created: 2025-03-16
+## Last Modified: 2025-03-16
+## Description: 使用 Qwen_2.5-7B-instruct 模型进行推理
+
 import json
 import argparse
 import os
 import logging
 import gc
 import re
+import sys
+from pathlib import Path
+from datetime import datetime
 from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 from peft import PeftModel
 import torch
 from tqdm import tqdm
 
+# 导入工具函数
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from scripts.utils import get_project_root, get_data_path, get_model_path, setup_logging, ensure_dir
+
 # 设置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('inference.log'),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
+log_file = Path(get_project_root()) / "logs" / f"inference_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+logger = setup_logging(log_file=log_file)
 
 def save_results(output_data, output_path, is_final=False):
     """保存结果到输出文件"""
@@ -96,14 +101,18 @@ def extract_json(text):
     return None
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--model_base", type=str, default="../models/qwen/Qwen2___5-7B-Instruct",
+    parser = argparse.ArgumentParser(description="使用微调后的Qwen模型进行医疗诊断推理")
+    parser.add_argument("--model_base", type=str, 
+                        default=str(get_model_path("qwen/Qwen2___5-7B-Instruct")),
                         help="原始 Qwen 基础模型名称或路径")
-    parser.add_argument("--adapter_dir", type=str, default="../models/qwen_lora_finetuned/20250316_044623/final_model",
+    parser.add_argument("--adapter_dir", type=str, 
+                        default=str(get_model_path("qwen_lora_finetuned/20250316_044623/final_model")),
                         help="LoRA 适配器所在目录，即微调后的 final_model 文件夹")
-    parser.add_argument("--input_path", type=str, default="../data/camp_data_step_2_without_answer.jsonl",
+    parser.add_argument("--input_path", type=str, 
+                        default=str(get_data_path("camp_data_step_2_without_answer.jsonl")),
                         help="测试数据文件路径")
-    parser.add_argument("--output_path", type=str, default="../data/predict_output.jsonl",
+    parser.add_argument("--output_path", type=str, 
+                        default=str(get_data_path("predict_output.jsonl")),
                         help="生成的预测结果保存路径")
     parser.add_argument("--max_new_tokens", type=int, default=256,
                         help="生成新 token 的最大数目")
