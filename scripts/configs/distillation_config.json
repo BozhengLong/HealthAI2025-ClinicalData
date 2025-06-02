@@ -1,0 +1,42 @@
+{
+  "competition_info": {
+    "name": "HealthAI 2025 临床医学数据处理竞赛",
+    "url": "https://competition.pkucxpl.com/",
+    "model_restriction": "Qwen2.5-7B-Instruct"
+  },
+  "distillation_config": {
+    "distillation_type": "api",
+    "temperature": 4.0,
+    "alpha": 0.7,
+    "use_progressive": true
+  },
+  "model_config": {
+    "teacher_model_path": null,
+    "student_model_path": "Qwen/Qwen2.5-7B-Instruct",
+    "max_length": 1024
+  },
+  "api_config": {
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "teacher_model_name": "qwen2.5-72b-instruct",
+    "temperature": 0.7,
+    "max_tokens": 800,
+    "note": "使用Qwen2.5-72B-Instruct开源API，符合比赛规则"
+  },
+  "weight_config": {
+    "reasoning_weight": 3.0,
+    "diagnosis_weight": 2.5,
+    "feature_weight": 0.3,
+    "description": "针对医疗诊断场景的差异化权重优化"
+  },
+  "training_config": {
+    "batch_size": 4,
+    "learning_rate": 2e-5,
+    "num_epochs": 3,
+    "save_steps": 500,
+    "logging_steps": 10
+  },
+  "output_config": {
+    "output_dir": "outputs/healthai_2025_model",
+    "save_total_limit": 2
+  }
+} 

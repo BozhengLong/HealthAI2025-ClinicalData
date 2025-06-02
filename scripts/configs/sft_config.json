@@ -1,0 +1,44 @@
+{
+  "competition_info": {
+    "name": "HealthAI 2025 临床医学数据处理竞赛",
+    "url": "https://competition.pkucxpl.com/",
+    "model_restriction": "Qwen2.5-7B-Instruct",
+    "description": "比赛指定模型微调配置"
+  },
+  "model_config": {
+    "model_name": "Qwen/Qwen2.5-7B-Instruct",
+    "max_length": 1024,
+    "trust_remote_code": true
+  },
+  "lora_config": {
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "target_modules": ["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+    "description": "高效参数微调，适应有限硬件资源"
+  },
+  "training_config": {
+    "num_epochs": 3,
+    "batch_size": 4,
+    "learning_rate": 2e-5,
+    "warmup_steps": 100,
+    "save_steps": 500,
+    "logging_steps": 10,
+    "gradient_accumulation_steps": 4,
+    "description": "针对医疗数据优化的训练参数"
+  },
+  "quantization_config": {
+    "use_4bit": true,
+    "bnb_4bit_quant_type": "nf4",
+    "bnb_4bit_compute_dtype": "float16",
+    "bnb_4bit_use_double_quant": true,
+    "description": "4bit量化支持有限硬件资源"
+  },
+  "output_config": {
+    "output_dir": "outputs/healthai_2025_sft_model",
+    "save_total_limit": 2,
+    "remove_unused_columns": false,
+    "dataloader_drop_last": true,
+    "report_to": null
+  }
+} 

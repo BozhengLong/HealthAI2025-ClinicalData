@@ -1,0 +1,38 @@
+api:
+  api_base: https://api.siliconflow.cn/v1/chat/completions
+  api_key: null
+  checkpoint_interval: 50
+  max_retries: 3
+  model_name: qwen2.5-72b-instruct
+  retry_delay: 1.2
+data:
+  checkpoint_file: checkpoint.jsonl
+  distillation_file: train_distillation_data.jsonl
+  output_file: predictions.jsonl
+  test_file: camp_data_step_2_without_answer.jsonl
+  train_file: train_labeled_by_qwen.jsonl
+inference:
+  batch_size: 1
+  load_in_4bit: true
+  max_length: 512
+  max_samples: 10
+  temperature: 0.0
+  timeout: 10
+model:
+  alpha: 0.5
+  base_model_path: qwen/Qwen2___5-7B-Instruct
+  batch_size: 1
+  gradient_accumulation_steps: 32
+  learning_rate: 5.0e-05
+  load_in_8bit: true
+  lora_alpha: 32
+  lora_dropout: 0.05
+  lora_r: 16
+  max_length: 4096
+  num_epochs: 3
+  save_steps: 200
+  temperature: 2.0
+  use_gradient_checkpointing: true
+  use_lora: true
+  warmup_ratio: 0.1
+  weight_decay: 0.01
